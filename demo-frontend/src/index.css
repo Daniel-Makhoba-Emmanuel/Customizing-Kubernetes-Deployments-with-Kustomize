@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Kustomize Tutorial Design System - Minimalist Black & White Theme */
+
+@layer base {
+  :root {
+    /* Star Wars theme - Space background with light text */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    /* Cards and surfaces */
+    --card: 240 8% 6%;
+    --card-foreground: 0 0% 98%;
+
+    /* Code and terminal styling */
+    --code: 240 10% 8%;
+    --code-foreground: 240 5% 88%;
+    --terminal: 240 10% 6%;
+    --terminal-foreground: 120 100% 85%;
+
+    /* Interactive elements */
+    --popover: 240 8% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 240 10% 3.9%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    /* Status colors */
+    --success: 120 100% 25%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 60 100% 30%;
+    --warning-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Borders and inputs */
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Code and monospace styling */
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  }
+
+  /* Custom scrollbar for code areas */
+  .code-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .code-scroll::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  .code-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+
+  .code-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+
+  /* 3D Text Effect with Reflection */
+  .text-3d {
+    color: hsl(var(--foreground));
+    text-shadow: 
+      0 1px 0 hsl(var(--foreground) / 0.8),
+      0 2px 0 hsl(var(--foreground) / 0.7),
+      0 3px 0 hsl(var(--foreground) / 0.6),
+      0 4px 0 hsl(var(--foreground) / 0.5),
+      0 5px 0 hsl(var(--foreground) / 0.4),
+      0 6px 0 hsl(var(--foreground) / 0.3),
+      0 7px 0 hsl(var(--foreground) / 0.2),
+      0 8px 0 hsl(var(--foreground) / 0.1),
+      0 9px 10px hsl(var(--foreground) / 0.15),
+      0 15px 20px hsl(var(--foreground) / 0.1);
+    transform: perspective(500px) rotateX(15deg);
+    position: relative;
+  }
+
+  /* Reflection effect */
+  .text-3d::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    color: hsl(var(--foreground) / 0.2);
+    transform: perspective(500px) rotateX(-15deg) scaleY(-1);
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--foreground) / 0.2) 0%,
+      transparent 60%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    pointer-events: none;
+  }
+
+  /* Star Wars Theme Styles */
+  .bg-space {
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f23 50%, #000000 100%);
+    position: relative;
+  }
+
+  .bg-space::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, white, transparent),
+      radial-gradient(2px 2px at 40px 70px, white, transparent),
+      radial-gradient(1px 1px at 90px 40px, white, transparent),
+      radial-gradient(1px 1px at 130px 80px, white, transparent),
+      radial-gradient(2px 2px at 160px 30px, white, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: starfield 20s linear infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes starfield {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100px); }
+  }
+
+  /* Star Wars 3D Text */
+  .text-starwars {
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #ffe81f;
+    text-shadow: 
+      0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb,
+      0 4px 0 #b9b9b9,
+      0 5px 0 #aaa,
+      0 6px 1px rgba(0,0,0,.1),
+      0 0 5px rgba(255, 232, 31, 0.5),
+      0 1px 3px rgba(0,0,0,.3),
+      0 3px 5px rgba(0,0,0,.2),
+      0 5px 10px rgba(0,0,0,.25),
+      0 10px 10px rgba(0,0,0,.2),
+      0 20px 20px rgba(0,0,0,.15);
+    transform: perspective(500px) rotateX(25deg);
+    position: relative;
+  }
+
+  .text-starwars::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    color: rgba(255, 232, 31, 0.3);
+    transform: perspective(500px) rotateX(-25deg) scaleY(-1);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 232, 31, 0.3) 0%,
+      transparent 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    pointer-events: none;
+  }
+
+  /* Glow effect for text */
+  .glow-text {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor,
+      0 0 20px currentColor;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px currentColor;
+    }
+    to {
+      text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor,
+        0 0 40px currentColor;
+    }
+  }
+}
