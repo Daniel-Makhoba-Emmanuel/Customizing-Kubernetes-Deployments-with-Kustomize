@@ -2,12 +2,8 @@ package main
 
 import (
 	"fmt"
-	databases "full-stack-k8s-Lab/Databases"
-	"full-stack-k8s-Lab/routes"
 	"log"
 	"os"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
