@@ -1,35 +1,46 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	databases.ConnectToPostgres() // Connect to the PostgreSQL database
+// Define a struct for the JSON response
+type EnvironmentResponse struct {
+	Environment string `json:"environment"`
+}
 
-	//create a new router
+func main() {
+	// create a new router
 	router := gin.Default()
 
-	routes.ApiRoute(router)
-	routes.HealthRoute(router)
-	routes.ReadyRoute(router)
+	// --- NEW: Define the API endpoint for the frontend ---
+	router.GET("/api/environment", func(c *gin.Context) {
+		// Read the ENVIRONMENT variable set by Kustomize
+		env := os.Getenv("ENVIRONMENT")
+		if env == "" {
+			env = "unknown" // Fallback if the variable is not set
+		}
 
-	dbHost := os.Getenv("DB_HOST")
-	apiPort := os.Getenv("API_PORT")
-	randomEnvValue := os.Getenv("RANDOM_ENV_VALUE")
+		// Return a JSON response
+		c.JSON(http.StatusOK, EnvironmentResponse{
+			Environment: env,
+		})
+	})
 
-	log.Printf("DB Host: %s, API Port: %s, Randow Env Value: %s\n", dbHost, apiPort, randomEnvValue)
-
+	// Read the API_PORT from environment variables or use a default
 	port := os.Getenv("API_PORT")
 	if port == "" {
-		port = "8080" //  Default port if not specified
+		port = "8080"
 	}
 
 	listenAddr := ":" + port
 
-	fmt.Printf("Starting server on port %s", listenAddr) // Print the port number to the console
+	log.Printf("Starting server on port %s", listenAddr)
+
 	// Start the server
 	err := router.Run(listenAddr)
 	if err != nil {
