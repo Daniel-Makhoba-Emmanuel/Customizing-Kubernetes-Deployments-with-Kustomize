@@ -1,0 +1,16 @@
+# overlays/dev/deployment-patch.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend-container
+          env:
+            - name: ENVIRONMENT # The environment variable name in the container
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config # The name of the ConfigMap
+                  key: ENVIRONMENT # The key you want to read from the ConfigMap

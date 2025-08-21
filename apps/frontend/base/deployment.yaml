@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      terminationGracePeriodSeconds: 60 # Grace period for pod termination
+      containers:
+        - name: frontend-container
+          image: iamdanielemmanuel22643/kustomize-frontend:prod # Replace with your actual image
+          ports:
+            - name: http-frontend
+              containerPort: 80 # Port your frontend listens on
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m" # Adjust as necessary for your application

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      terminationGracePeriodSeconds: 60 # Grace period for pod termination
+      containers:
+        - name: backend-container
+          image: iamdanielemmanuel22643/kustomize-backend:latest # Replace with your actual image
+          ports:
+            - name: http-backend
+              containerPort: 8080 # Port your backend listens on
+          resources:
+                requests:
+                  memory: "128Mi"
+                  cpu: "100m"
+                limits:
+                  memory: "256Mi"
+                  cpu: "300m" # Adjust as necessary for your application
