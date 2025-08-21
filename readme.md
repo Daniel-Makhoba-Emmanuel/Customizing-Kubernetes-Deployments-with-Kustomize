@@ -28,8 +28,7 @@ Hello!, welcome to my kustomize project!. This repository contains a set of Kube
 Your first step in this project would be cloning it. you can do this running the following command in your terminal:
 
 ```bash
-git clone [<repository_url>](https://github.com/Daniel-Makhoba-Emmanuel/Customizing-Kubernetes-Deployments-with-Kustomize.git)
-cd <repository_directory>
+git clone https://github.com/Daniel-Makhoba-Emmanuel/Customizing-Kubernetes-Deployments-with-Kustomize.git
 ```
 
 ## Navigating the project
